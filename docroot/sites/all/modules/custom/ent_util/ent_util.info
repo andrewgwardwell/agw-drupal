@@ -1,0 +1,6 @@
+name = Utiilies
+description = "Utilities module for enticklemewardwell.com."
+package = Tickle Me
+version = VERSION
+core = 7.x
+

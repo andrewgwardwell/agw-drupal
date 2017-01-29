@@ -1,0 +1,21 @@
+name = Feather
+description = A custom theme for Enticklemewardwell.com
+package = Entickle
+version = VERSION
+core = 7.x
+
+stylesheets[all][] = styles/stylesheets/grid_feather.css
+stylesheets[all][] = styles/stylesheets/style.css
+
+;scripts[] = scripts/masonry/jquery.masonry.min.js
+;scripts[] = scripts/matchMedia.js/matchMedia.addListener.js
+;scripts[] = scripts/matchMedia.js/matchMedia.js
+;scripts[] = scripts/waypoints/waypoints.min.js
+;scripts[] = scripts/waypoints/shortcuts/sticky-elements/waypoints-sticky.min.js
+;scripts[] = js/entickle_core.js
+
+regions[header] = Header
+regions[nav] = Navigation
+regions[content] = Main Content Area
+regions[second_content] = Second Content Area
+regions[footer] = Footer

@@ -1,0 +1,764 @@
+/* line 2, ../dependencies/neat/grid/_grid.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 5, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 7, ../sass/_grid_feather.scss */
+.block-ent-ajax {
+  display: none;
+}
+
+/* line 7, ../sass/_projects.scss */
+#container {
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+/* line 12, ../sass/_projects.scss */
+#nav-container {
+  background: white;
+  float: left;
+  position: relative;
+  z-index: 30;
+  width: 100%;
+}
+
+/* line 20, ../sass/_projects.scss */
+#svg {
+  z-index: -1;
+  position: relative;
+  width: 600px;
+  height: 500px;
+  margin: auto;
+  display: none;
+}
+
+/* line 29, ../sass/_projects.scss */
+.svg-container {
+  width: 80%;
+  height: auto;
+  float: left;
+  margin-top: 70px;
+  display: none;
+}
+
+/* line 37, ../sass/_projects.scss */
+.nav {
+  padding: 50px;
+  -webkit-transition: width 500ms, opacity 500ms, height 500ms;
+  -moz-transition: width 500ms, opacity 500ms, height 500ms;
+  -o-transition: width 500ms, opacity 500ms, height 500ms;
+  transition: width 500ms, opacity 500ms, height 500ms;
+}
+/* line 43, ../sass/_projects.scss */
+.nav .name {
+  margin-bottom: 20px;
+}
+/* line 46, ../sass/_projects.scss */
+.nav .name:hover {
+  cursor: pointer;
+}
+
+/* line 52, ../sass/_projects.scss */
+.nav__item {
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 10px;
+}
+/* line 56, ../sass/_projects.scss */
+.nav__item h3 {
+  display: block;
+  float: left;
+}
+
+/* line 62, ../sass/_projects.scss */
+.detail {
+  padding-top: 50px;
+}
+/* line 65, ../sass/_projects.scss */
+.detail h1, .detail span {
+  line-height: 25px;
+}
+/* line 68, ../sass/_projects.scss */
+.detail h1 {
+  margin-bottom: 17px;
+}
+/* line 71, ../sass/_projects.scss */
+.detail span {
+  font-size: 16px;
+}
+/* line 74, ../sass/_projects.scss */
+.detail img {
+  width: 100%;
+}
+
+/* line 79, ../sass/_projects.scss */
+#display-container {
+  width: 100%;
+  float: left;
+  background: white;
+  position: relative;
+  z-index: 20;
+  -webkit-transition: width 500ms;
+  -moz-transition: width 500ms;
+  -o-transition: width 500ms;
+  transition: width 500ms;
+}
+
+/* line 91, ../sass/_projects.scss */
+.project {
+  width: 95%;
+  float: left;
+  margin: 10px 2.5%;
+  min-height: 120px;
+  -webkit-transition: opacity 1500ms, width 500ms;
+  -moz-transition: opacity 1500ms, width 500ms;
+  -o-transition: opacity 1500ms, width 500ms;
+  transition: opacity 1500ms, width 500ms;
+}
+/* line 101, ../sass/_projects.scss */
+.project img {
+  max-width: 100%;
+}
+/* line 104, ../sass/_projects.scss */
+.project h2 {
+  font-family: "Linden Hill", "serif";
+}
+
+/* line 109, ../sass/_projects.scss */
+.open-button {
+  display: none;
+  font-size: 2.5em;
+  margin-left: 1.5%;
+  color: #214071;
+  top: 90px;
+}
+
+/* line 117, ../sass/_projects.scss */
+.skills {
+  position: fixed;
+  width: 100%;
+  height: 0;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  overflow: hidden;
+  background: #84E8C5;
+  -webkit-transition: width 500ms, opacity 500ms, height 500ms;
+  -moz-transition: width 500ms, opacity 500ms, height 500ms;
+  -o-transition: width 500ms, opacity 500ms, height 500ms;
+  transition: width 500ms, opacity 500ms, height 500ms;
+  line-height: 15px;
+}
+
+/* line 133, ../sass/_projects.scss */
+.active-item .skill__item {
+  box-shadow: inset 5px 5px 28px -4px;
+}
+
+/* line 137, ../sass/_projects.scss */
+.skill__item {
+  color: #AB7C28;
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 50px;
+}
+
+/* line 144, ../sass/_projects.scss */
+.skill-cont {
+  margin: 0 0 0 10px;
+}
+
+/* line 148, ../sass/_projects.scss */
+.menu_open .skills {
+  opacity: 1;
+  z-index: 999;
+  box-shadow: inset 0px -35px 160px -50px #C0CFE8;
+}
+
+/* line 154, ../sass/_projects.scss */
+.close-menu {
+  float: right;
+  background: white;
+  border-radius: 10px;
+  width: 20px;
+  height: 16px;
+  text-align: center;
+  /* vertical-align: middle; */
+  padding: 5px;
+}
+
+/* line 165, ../sass/_projects.scss */
+.icon {
+  margin: 0 auto;
+  width: 80%;
+  display: block;
+}
+
+/* line 172, ../sass/_projects.scss */
+.fixed-header #icon {
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin-right: -30px;
+  z-index: 9;
+  width: auto;
+}
+/* line 180, ../sass/_projects.scss */
+.fixed-header .nav .name {
+  margin-bottom: 20px;
+  position: fixed;
+  background: white;
+  top: 0;
+  height: 50px;
+  padding-top: 30px;
+  left: 0;
+  padding-left: 20px;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  /* line 220, ../sass/_projects.scss */
+  .icon {
+    width: auto;
+    margin: 0;
+  }
+  /* line 223, ../sass/_projects.scss */
+  .icon:hover {
+    cursor: pointer;
+  }
+
+  /* line 228, ../sass/_projects.scss */
+  .three {
+    background: white;
+  }
+  /* line 230, ../sass/_projects.scss */
+  .three #svg {
+    display: none;
+  }
+  /* line 233, ../sass/_projects.scss */
+  .three #display-container {
+    width: 15%;
+    box-shadow: 21px 0px 49px -34px #AB5328;
+    display: block;
+  }
+  /* line 239, ../sass/_projects.scss */
+  .three #detail-container {
+    width: 65%;
+    display: block;
+  }
+  /* line 244, ../sass/_projects.scss */
+  .three .project {
+    width: 80%;
+    margin-left: 15%;
+  }
+  /* line 247, ../sass/_projects.scss */
+  .three .project h2 {
+    font-size: 12px;
+    display: none;
+  }
+  /* line 252, ../sass/_projects.scss */
+  .three .project:hover h2 {
+    display: block;
+    margin-top: -24px;
+    background: white;
+    position: relative;
+    max-width: 70%;
+    padding: 6px;
+    border-radius: 0 10px 0 0;
+  }
+
+  /* line 266, ../sass/_projects.scss */
+  .two #display-container {
+    width: 72%;
+    padding-left: 8%;
+    display: block;
+  }
+  /* line 272, ../sass/_projects.scss */
+  .two #svg {
+    display: none;
+  }
+  /* line 275, ../sass/_projects.scss */
+  .two #detail-container {
+    width: 0;
+  }
+  /* line 278, ../sass/_projects.scss */
+  .two .project {
+    width: 45%;
+  }
+
+  /* line 283, ../sass/_projects.scss */
+  #svg, .svg-container {
+    display: block;
+  }
+
+  /* line 287, ../sass/_projects.scss */
+  .detail {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  /* line 292, ../sass/_projects.scss */
+  #nav-container {
+    width: 20%;
+    float: left;
+    box-shadow: 21px 0px 25px -34px #2A4A7C;
+  }
+
+  /* line 300, ../sass/_projects.scss */
+  .skills {
+    position: relative;
+    opacity: 1;
+    width: 100%;
+    background: none;
+    height: auto;
+  }
+
+  /* line 308, ../sass/_projects.scss */
+  .close-menu {
+    display: none;
+  }
+
+  /* line 312, ../sass/_projects.scss */
+  #display-container {
+    width: 0;
+    box-shadow: 21px 0px 49px -34px #AB5328;
+    float: left;
+    padding-top: 40px;
+  }
+
+  /* line 320, ../sass/_projects.scss */
+  #detail-container {
+    float: left;
+    width: 0;
+    display: none;
+    -webkit-transition: width 300ms;
+    -moz-transition: width 300ms;
+    -o-transition: width 300ms;
+    transition: width 300ms;
+  }
+
+  /* line 331, ../sass/_projects.scss */
+  .project {
+    width: 33%;
+    float: left;
+    min-height: 120px;
+    margin: 10px;
+    display: none;
+    opacity: 0;
+  }
+  /* line 339, ../sass/_projects.scss */
+  .project img {
+    width: 90%;
+  }
+
+  /* line 345, ../sass/_projects.scss */
+  .open .project {
+    display: block;
+    opacity: 1;
+  }
+
+  /* line 352, ../sass/_projects.scss */
+  .closed .project {
+    display: none;
+    opacity: 0;
+  }
+
+  /* line 358, ../sass/_projects.scss */
+  .jump-to-site {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    float: left;
+    width: 100%;
+  }
+  /* line 363, ../sass/_projects.scss */
+  .jump-to-site:hover {
+    color: #BC5F33;
+  }
+
+  /* line 368, ../sass/_projects.scss */
+  .skill__item {
+    color: black;
+    font-size: 1em;
+    line-height: 24px;
+    font-weight: 400;
+    float: left;
+    width: 100%;
+  }
+  /* line 377, ../sass/_projects.scss */
+  .skill__item:hover .dot-cont {
+    width: 25%;
+  }
+
+  /* line 383, ../sass/_projects.scss */
+  .skill-cont, .dot-cont {
+    float: left;
+    display: block;
+  }
+
+  /* line 388, ../sass/_projects.scss */
+  .skill-cont {
+    max-width: 75%;
+    margin: 0;
+  }
+
+  /* line 393, ../sass/_projects.scss */
+  .dot-cont {
+    width: 10px;
+    -webkit-transition: width 600ms;
+    -moz-transition: width 600ms;
+    -o-transition: width 600ms;
+    transition: width 600ms;
+  }
+
+  /* line 401, ../sass/_projects.scss */
+  .dot {
+    float: right;
+    margin-top: 7px;
+  }
+}
+@media screen and (max-width: 62.5em) {
+  /* line 412, ../sass/_projects.scss */
+  .mobile.menu_open .skills-mobile {
+    -webkit-transform: translateX(0%) translateY(3%);
+    -moz-transform: translateX(0%) translateY(3%);
+    -ms-transform: translateX(0%) translateY(3%);
+    -o-transform: translateX(0%) translateY(3%);
+    transform: translateX(0%) translateY(3%);
+    max-height: 5000px;
+  }
+
+  /* line 418, ../sass/_projects.scss */
+  #display-container {
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    float: none;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  /* line 425, ../sass/_projects.scss */
+  #detail-container {
+    max-width: 95%;
+    margin: 0 auto;
+    opacity: .2;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+  }
+
+  /* line 439, ../sass/_projects.scss */
+  .mobile.three .open-button {
+    display: block;
+  }
+  /* line 442, ../sass/_projects.scss */
+  .mobile.three #detail-container {
+    opacity: 1;
+  }
+  /* line 445, ../sass/_projects.scss */
+  .mobile.three #display-container {
+    width: 50%;
+    position: absolute;
+    top: 100px;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+
+  /* line 454, ../sass/_projects.scss */
+  .mobile .icon {
+    position: fixed;
+    right: 0;
+    top: -35px;
+    margin-right: -25px;
+    z-index: 9;
+    width: auto;
+  }
+  /* line 462, ../sass/_projects.scss */
+  .mobile .nav {
+    padding: 50px 0;
+  }
+  /* line 465, ../sass/_projects.scss */
+  .mobile .nav-wrap {
+    background: #ffffff;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    top: 0px;
+    margin: 0;
+    padding: 0;
+    z-index: 999;
+  }
+  /* line 475, ../sass/_projects.scss */
+  .mobile .nav .name {
+    margin-bottom: 20px;
+    position: fixed;
+    background: white;
+    top: 0;
+    height: 50px;
+    padding-top: 30px;
+    left: 0;
+    padding-left: 20px;
+    width: 70%;
+  }
+  /* line 487, ../sass/_projects.scss */
+  .mobile .skills-mobile {
+    width: 100%;
+    max-height: 0px;
+    top: 50px;
+    left: 0px;
+    opacity: 1;
+    overflow: hidden;
+    background: #84E8C5;
+    -webkit-transition: -webkit-transform 1.5s, max-height 1s;
+    -moz-transition: -moz-transform 1.5s, max-height 1s;
+    transition: transform 1.5s, max-height 1s;
+    line-height: 15px;
+    transform: translateX(104%) translateY(-104%);
+  }
+}
+/* line 2, ../sass/_resume.scss */
+.resume .open-button {
+  display: none;
+}
+/* line 5, ../sass/_resume.scss */
+.resume #resume-container {
+  display: block;
+}
+/* line 8, ../sass/_resume.scss */
+.resume #detail-container {
+  display: none;
+}
+
+/* line 14, ../sass/_resume.scss */
+.skill__item--resume {
+  background: #8DB0E8;
+  color: #F3CD8A;
+  border-bottom: 3px solid #227E5E;
+}
+
+/* line 20, ../sass/_resume.scss */
+.active-item .skill__item--resume {
+  box-shadow: inset 5px 5px 28px -4px #1B7354;
+}
+
+/* line 24, ../sass/_resume.scss */
+#resume-container {
+  display: none;
+}
+/* line 26, ../sass/_resume.scss */
+#resume-container .res-section-title {
+  margin: 10px 0;
+}
+/* line 29, ../sass/_resume.scss */
+#resume-container .item-heading {
+  margin: 10px 0;
+  font-weight: 600;
+}
+/* line 33, ../sass/_resume.scss */
+#resume-container .item-dates {
+  font-style: italic;
+  font-weight: 600;
+}
+/* line 37, ../sass/_resume.scss */
+#resume-container .sections {
+  margin: 0 auto;
+  padding: 1em 0;
+  width: 95%;
+}
+/* line 42, ../sass/_resume.scss */
+#resume-container p {
+  padding: 10px 0;
+  line-height: 30px;
+  font-family: 'abel';
+}
+/* line 47, ../sass/_resume.scss */
+#resume-container ul {
+  list-style: disc;
+}
+/* line 49, ../sass/_resume.scss */
+#resume-container ul li {
+  font-family: 'abel';
+}
+/* line 53, ../sass/_resume.scss */
+#resume-container .overview {
+  border-top: 10px solid #C0CFE8;
+}
+/* line 56, ../sass/_resume.scss */
+#resume-container .experience {
+  border-top: 10px solid #F3E2C5;
+}
+/* line 59, ../sass/_resume.scss */
+#resume-container .res-skills {
+  border-top: 10px solid #F3D4C5;
+}
+/* line 62, ../sass/_resume.scss */
+#resume-container .res-skills ul {
+  list-style: disc;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+}
+/* line 65, ../sass/_resume.scss */
+#resume-container .res-skills ul li {
+  padding: inherit;
+  -webkit-column-break-inside: avoid;
+  /* Chrome, Safari */
+  page-break-inside: avoid;
+  /* Theoretically FF 20+ */
+  break-inside: avoid-column;
+  /* IE 11 */
+  display: grid;
+  /* Actually FF 20+ */
+}
+/* line 74, ../sass/_resume.scss */
+#resume-container .education {
+  border-top: 10px solid #BCE8D8;
+}
+
+@media screen and (min-width: 46.875em) {
+  /* line 80, ../sass/_resume.scss */
+  #resume {
+    margin-top: 20px;
+    font-family: 'abel';
+    color: #2C4874;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+  /* line 85, ../sass/_resume.scss */
+  #resume.active-res, #resume:hover {
+    font-weight: 600;
+    cursor: pointer;
+    color: #B08438;
+    padding-left: 10px;
+  }
+
+  /* line 94, ../sass/_resume.scss */
+  .resume #display-container {
+    display: none;
+  }
+  /* line 97, ../sass/_resume.scss */
+  .resume .svg-container {
+    display: none;
+  }
+  /* line 100, ../sass/_resume.scss */
+  .resume #resume-container {
+    -webkit-transform: translateX(1%);
+    -moz-transform: translateX(1%);
+    -ms-transform: translateX(1%);
+    -o-transform: translateX(1%);
+    transform: translateX(1%);
+  }
+
+  /* line 104, ../sass/_resume.scss */
+  #resume-container {
+    width: 80%;
+    float: left;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    transition: all 1s;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+/* line 43, ../sass/style.scss */
+html {
+  overflow-y: scroll;
+}
+
+/* line 47, ../sass/style.scss */
+.messages {
+  display: none;
+}
+
+/* line 51, ../sass/style.scss */
+h1, strong, h2, a, label, span {
+  font-family: abel;
+  font-size: 24px;
+  font-weight: 100;
+  color: #2A4A7C;
+  font-weight: 300;
+  text-decoration: none;
+  color: black;
+}
+
+/* line 61, ../sass/style.scss */
+h1 {
+  font-family: "Linden Hill", "serif";
+}

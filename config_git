@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = false
+[remote "origin"]
+	url = ssh://entickle@enticklemewardwell.com:65321/home/entickle/base.git/agw2
+	fetch = +refs/heads/*:refs/remotes/origin/*

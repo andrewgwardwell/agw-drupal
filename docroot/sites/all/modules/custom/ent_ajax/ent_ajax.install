@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Awardwell
+ * Date: 5/28/13
+ * Time: 1:18 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+/**
+ * Trying to save my content types etc.
+ */
+function ent_ajax_update_7001 (){
+  $pro_nodes = db_delete('node')
+               ->condition('type', 'ent_project')
+               ->execute();
+  if ($pro_nodes){
+    drupal_set_message('Down the Hatch');
+  }
+
+}

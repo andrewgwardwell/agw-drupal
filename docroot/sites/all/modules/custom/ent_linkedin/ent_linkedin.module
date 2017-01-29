@@ -1,0 +1,65 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Awardwell
+ * Date: 6/12/13
+ * Time: 8:39 AM
+ * To change this template use File | Settings | File Templates.
+ */
+
+/**
+ * @return array
+ * implementation of hook_block_info()
+ */
+function ent_linkedin_block_info(){
+  $blocks = array();
+  $blocks['linkedin'] = array(
+    'title' => t('LinkedIn Block'),
+    'cache' => DRUPAL_NO_CACHE,
+    'weight' => 0,
+    'pages' => '<front>',
+    'visibiility' => BLOCK_VISIBILITY_LISTED
+  );
+  return $blocks;
+}
+
+/**
+ * implemenation of hook_block_view
+ */
+function ent_linkedin_block_view($delta = ''){
+  $block = array();
+  switch ($delta){
+    case 'linkedin':
+      $block['subject'] = '';
+      $block['content'] = linkedin_controller();
+      break;
+  }
+return $block;
+}
+
+
+function linkedin_controller(){
+  // we need to get the data from linkedin
+  $data = linkedin_model();
+
+
+
+  // we have to format the data into the type of markup we need
+
+  // we need to return the data into the block
+  return '';
+}
+
+
+function linkedin_model(){
+  $api_key = 's3rzjywvae30';
+  $api_secret_key = 'V9Xmcg3fcQhqdIni';
+  $o_auth_id = 'ae97649e-1d1a-41f6-a047-2a0cdbeb11bb';
+  $o_auth_id_secret = '969d8707-64f9-4964-807f-07c9936e3db4';
+
+  $unique_state = 'ECFFGWG56564sdggeg313';
+  $redirect_uri = $_SERVER['host'];
+  $connection_string = 'https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id='.$api_key.
+                       '&scope=scope=r_fullprofile&state='.$unique_state.'&redirect_uri='.$redirect_uri;
+  return '';
+}

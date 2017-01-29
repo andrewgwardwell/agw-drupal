@@ -1,0 +1,307 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Awardwell
+ * Date: 3/23/13
+ * Time: 1:32 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+
+
+function ent_ajax_block_info(){
+  $blocks = array();
+  $blocks['home_page_filter_form'] = array(
+    'title' => t('Entickle Me Wardwell Nav Block'),
+    'info' => t('The block that Houses the Navigation Window'),
+    'cache' => DRUPAL_NO_CACHE,
+    'region' => 'nav',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['home_page_view_area'] = array(
+    'title' => t('ENT Projects Block'),
+    'info' => t('AJAX target and Viewing Area'),
+    'cache' => DRUPAL_NO_CACHE,
+    'region' => 'content',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['title_block'] = array(
+    'title' => t('Title Block'),
+    'info' => t('Title Block'),
+    'cache' => DRUPAL_NO_CACHE,
+    'region' => 'header',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['footer_block'] = array(
+    'title' => t('Footer Block'),
+    'info' => t('Footer Block'),
+    'cache' => DRUPAL_NO_CACHE,
+    'region' => 'footer',
+    'weight' => 0,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  $blocks['footer_stats_block'] = array(
+    'title' => t('Statistics Block'),
+    'info' => t('Statistics Block'),
+    'cache' => DRUPAL_NO_CACHE,
+    'region' => 'footer',
+    'weight' => 1,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  return $blocks;
+}
+
+
+function ent_ajax_block_view($delta = ''){
+  $block = array();
+  switch($delta){
+    case 'home_page_filter_form':
+      $block['subject'] = '';
+      $block['content'] = drupal_get_form('ent_nav_form');
+      break;
+    case 'home_page_view_area':
+      $block['subject'] = '';
+      $block['content'] = ent_front_page_photo();
+      break;
+    case 'title_block':
+      $title_markup = '<strong><span>'.strtoupper('andrew wardwell').'</span></strong>';
+      $title = array(
+        '#type' => 'markup',
+        '#markup' => $title_markup,
+        '#prefix' => '<a class="title-link" href="/"><div class= "title-form-element">',
+        '#suffix' => '</div></a>',
+      );
+      $block['subject'] = '';
+      $block['content'] = drupal_render($title);
+      break;
+    case 'footer_block':
+      $markup = build_footer_block();
+      $block['subject'] = t('');
+      $block['content'] = render($markup);
+      break;
+    case 'footer_stats_block':
+      $block['subject'] = t('');
+      $block['content'] = stats_block_content();
+  }
+  return $block;
+}
+
+function stats_block_content(){
+  $data = stats_block_model();
+  $markup = stats_block_mvcview($data);
+  return $markup;
+}
+
+
+function stats_block_model(){
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'skill');
+  $results = $query->execute();
+  return $results['node'];
+}
+
+function stats_block_mvcview($data){
+  $markup = array();
+  foreach($data as $node){
+    $l_n = node_load($node->nid);
+    $themed = theme('stat_node', array('node' => $l_n));
+    $markup[] = $themed;
+  }
+  $content = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="footer__skills">',
+    '#markup' => implode('', $markup),
+    '#suffix' => '</div>'
+  );
+
+  $skills = '<a class="skills__trigger" href="javascript:void(0);"><div class = "logos__skills">SKILLS</div></a>';
+  $linkedin = '<a target="_blank" href="http://www.linkedin.com/profile/view?id=74122865"><div class = "logos__linkedin"><img src="http://icongal.com/gallery/image/27812/linkedin_square2_logo_0995.png" /></div></a>';
+  $logos = '<div class="logos">'.$linkedin.$skills.'</div>';
+
+  $comp_markup = render($content);
+  return $logos.$comp_markup;
+}
+
+function build_footer_block(){
+  $email = '<div class="contact email"><a href="mailto:andrewgwardwell@gmail.com?subject=Regarding%20the%20Conents%20of%20Your%20Website">Shoot me an Email</a></div>';
+  $phone = '<div class="contact phone"><a href="tel:+19788104222">Give me a Call</a></div>';
+  $text = '<div class = "text-div">I am a creative individual with technical clout and an interest in using the web '
+   .'to enrich peoples lives.<br/><br/><a href="http://www.digitalbungalow.com/"> I work here.</a> <br/><br/>'.
+   'I am interested in working with you.<br/><br/> '.$email.'</span></div>';
+  $caption = '<div class="contact caption"><span>'.$text.'</span></div>';
+  $markup =  array(
+    '#title' => t('Contact Information'),
+    '#type' => 'markup',
+    '#markup' => $caption,
+    '#prefix' => '<div class="contact-block">',
+    '#suffix' => '</div>',
+  );
+  return $markup;
+}
+
+function ent_nav_form(){
+  $form = array();
+  $proj_vid = variable_get('project_type_vocab');
+  $terms = taxonomy_get_tree($proj_vid);
+  $options = array();
+  foreach($terms as $term){
+    $options[$term->tid] = strtoupper($term->name);
+  }
+  $form['work'] = array(
+    '#options' => $options,
+    '#type' => 'radios',
+    '#ajax' => array(
+      'callback' => 'ent_return_work',
+      'event' => 'click',
+      'wrapper' => 'block-ent-ajax-home-page-view-area',
+      'progress' => array(
+        'type' => 'none',
+      ),
+    ),
+    '#theme' => 'checkboxes_as_fieldset',
+  );
+  $title_markup = '<strong><span>'.strtoupper('andrew wardwell').'</span></strong>';
+  $form['back_button'] = array(
+    '#type' => 'markup',
+    '#markup' => '<div class = "back-button__point"></div><div class = "back-button__length"><span class = "back-button__length__text">Back</span></div>',
+    '#prefix' => '<a class="back-button" href="/"><div class= "back-button__wrapper">',
+    '#suffix' => '</div></a>',
+  );
+  $form['nav-title'] = array(
+    '#type' => 'markup',
+    '#markup' => $title_markup,
+    '#prefix' => '<a class="title-link title-nav" href="/"><div class= "title-form-element">',
+    '#suffix' => '</div></a>',
+  );
+
+  return $form;
+}
+
+function ent_return_work($variables){
+  $tid = $variables['work']['#value'];
+  drupal_add_js(array('current_form_element' => $tid), 'setting');
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'ent_project')
+        ->propertyCondition('status', 1)
+        ->fieldCondition('field_ent_project_type_vocref', 'tid', $tid, '=')
+        ->propertyOrderBy('created', 'DESC');
+  $results = $query->execute();
+  $nodes = $results['node'];
+  $markup_nodes = array();
+  foreach ($nodes as $nid){
+    $nid = $nid->nid;
+    $node = node_load($nid);
+    $timestamp = $node->created;
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $image = $wrapper->field_image->raw();
+    $title = $node->title;
+    $description = $wrapper->body->raw();
+    $external_link = $wrapper->field_external_link->raw();
+    $image_uri = $image['uri'];
+    $image_style = null;
+    $style_type = $wrapper->field_image_orientation->value()->name;
+    if ($style_type == 'Landscape'){
+      $image_style = 'landscape_320_200';
+    }
+    if ($style_type == 'Scroll'){
+      $image_style = 'scroll_320_480';
+    }
+    if ($style_type == 'Portrait'){
+      $image_style = 'portrait_320_320';
+    }
+    if ($tid == 4){
+    $alias = drupal_get_path_alias('node/'.$nid);
+    $url = image_style_url($image_style, $image_uri);
+    $title = $node->title;
+    $view_array['#prefix'] = '<a href = "'.$alias.'" class = "node__project"><div class = "work-wrapper">';
+    $view_array['#type'] = 'markup';
+    $view_array['#markup'] = '<img src="'.$url.'"/>';
+    $view_array['#suffix'] = '</div></a>';
+    $markup_nodes[] = render($view_array);
+  }elseif($tid == 5) {
+
+      $url = image_style_url('web_work_640_400', $image_uri);
+      $title = $node->title;
+      $info_block = '<div class = "node__work__info"><div class = "node__work__title">'.$title.'</div><div class = "node__work__description">'.$description['safe_value'].
+      '</div><div class = "node__work__link"><a target = "_blank" href = "'.$external_link.'">View Site</a></div></div>';
+      //    $view_array = node_view($node, 'front_work_view');
+      $view_array['#prefix'] = '<div class = "node__work"><div class = "work-wrapper">';
+      $view_array['#type'] = 'markup';
+      $view_array['#markup'] = '<img src="'.$url.'"/>'.$info_block;
+      $view_array['#suffix'] = '</div></div>';
+      $markup_nodes[$timestamp] = render($view_array);
+  }
+    ksort($markup_nodes);
+  }
+  $results = array(
+    '#type' => 'markup',
+    '#markup' => implode('', $markup_nodes),
+    '#prefix' => '<div id="block-ent-ajax-home-page-view-area">',
+    '#suffix' => '</div>',
+  );
+  return  $results;
+
+}
+
+/**
+ * @param $entity_info
+ * implemenation of hook_entity_info_alter
+ *
+ * we are adding a view mode for the nodes here in
+ */
+function ent_ajax_entity_info_alter(&$entity_info){
+   $entity_info['node']['view modes']['front_work_view'] = array(
+     'label' => 'Front Page View',
+     'custom settings' => TRUE,
+   );
+}
+
+function ent_ajax_menu_alter(&$items){
+  /// we don't want a listing of nodes on the home page
+  $items['node']['page callback'] = 'entickle_node_callback_empty';
+}
+
+function ent_front_page_photo(){
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'ent_project')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_image_on_front_page', 'value', '1', '=')
+    ->propertyOrderBy('changed', 'DESC');
+  $results = $query->execute();
+  $node = $results['node'];
+  $latest = array_shift($node);
+  $loaded = node_load($latest->nid);
+  $image_uri = $loaded->field_image['und'][0]['uri'];
+  $image_styled = image_style_url('front_page_image', $image_uri);
+  return "<div class= 'front-page-image'><img src ='".$image_styled."'/></div>";
+}
+
+function entickle_node_callback_empty(){
+  return '';
+}
+
+//
+//function ent_ajax_form_alter(&$form, &$form_state){
+//    if ($form['#id'] == 'ent-nav-form' ){
+//      $form['work']['#after_build'][] = '_add_numeric_classes_to_radios';
+//    }
+//}
+//
+//
+//function _add_numeric_classes_to_radios($element) {
+//  // the 'origami' radio has been expanded by now
+//  $options = $element['#options'];
+//  $i= 1;
+//  foreach ($options as $key => $option){
+//    $element[$key]['#attributes']['class'][] = 'option-'.$i;
+//    $element[$key]['#array_parents'][] = 'option-'.$i;
+//    $i++;
+//  }
+//  return $element;
+//}

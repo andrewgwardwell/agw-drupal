@@ -1,0 +1,63 @@
+@import "variables";
+
+// Library: Bourbon
+@import "../dependencies/bourbon/bourbon";
+
+// Library: Chosen
+//@import "../dependencies/libs/chosen";
+
+// Dependency: Grid Variables & Mixins
+@import "../dependencies/grid";
+
+// Library: Neat
+@import "../dependencies/neat/neat";
+
+// Dependency: Colors
+@import "../dependencies/variables";
+
+// Dependency: Typography
+//@import "../dependencies/typography";
+
+//// Helpers
+//@import "../helpers/mixins";
+//@import "helpers/resets";
+//
+//// Foundational Reset
+////@import "foundation/block";
+//@import "foundation/forms";
+//@import "foundation/headings";
+//@import "foundation/inline";
+////@import "foundation/inputs";
+////@import "foundation/lists";
+////@import "foundation/media";
+//@import "foundation/site";
+////@import "foundation/tables";
+
+// Fonts
+//@import "fonts/icons";
+//@import "variables";
+@import "grid_feather";
+@import "projects";
+@import "resume";
+
+html{
+  overflow-y: scroll;
+}
+
+.messages{
+  display: none;
+}
+
+h1, strong, h2, a, label, span{
+  font-family: abel;
+  font-size: $baseFontSize;
+  font-weight: $navFontWeight;
+  color: $blue_1;
+  font-weight: 300;
+  text-decoration: none;
+  color: black;
+}
+
+h1{
+  font-family: $linden;
+}

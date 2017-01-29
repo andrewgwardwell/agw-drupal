@@ -1,0 +1,53 @@
+//@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400);
+//@import url(http://openfontlibrary.org/face/estrangelo-edessa);
+//@import url(http://www.911fonts.com/font/download_OptimaRegular_7135.htm);
+@import url(http://fonts.googleapis.com/css?family=Belleza&subset=latin,latin-ext);
+// Font Families
+%font-family-sans-serif {
+//  font-family: 'EstrangeloEdessaRegular', sans-serif;
+  font-family: 'Belleza', sans-serif;
+}
+
+// Font Weights
+%font-weight-light {
+  font-weight: 300;
+}
+
+%font-weight-semi {
+  font-weight: 500;
+}
+
+%font-weight-bold {
+  font-weight: 700;
+}
+
+// Font Styles
+%font-style-normal {
+  font-style: normal;
+}
+
+%font-style-italic {
+  font-style: italic;
+}
+
+// Font Placeholders
+%font-sans-serif-light {
+  @extend %font-family-sans-serif;
+  @extend %font-weight-light;
+}
+
+%font-sans-serif-semi {
+  @extend %font-family-sans-serif;
+  @extend %font-weight-semi;
+}
+
+%font-sans-serif-bold {
+  @extend %font-family-sans-serif;
+  @extend %font-weight-bold;
+}
+
+
+$base-font-size:1em;
+$base-font-size-palm:16px;
+$base-font-size-lap:16px;
+$base-font-size-desk:16px;

@@ -1,0 +1,129 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Awardwell
+ * Date: 3/16/13
+ * Time: 12:54 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+/**
+ * @param $term
+ * @param $vid
+ * @param int $parent
+ *
+ * function for adding terms that are parent to child relationship centric
+ */
+
+function ent_taxonomy_add_term($term, $vid, $parent = 0){
+
+  $t = new stdClass();
+  $t->name = $term['name'];
+  if (array_key_exists('description', $term)) {
+    $t->description = $term['description'];
+  }
+  $t->parent = $parent;
+  $t->vid = $vid;
+  if (array_key_exists('weight', $term)) {
+    $t->weight = $term['weight'];
+  }
+  // if exists, update
+  if (array_key_exists('tid', $term))
+    $t->tid = $term['tid'];
+
+  taxonomy_term_save($t);
+
+  if (isset($term['children'])) {
+    foreach ($term['children'] as $child){
+      ent_taxonomy_add_term($child, $vid, $t->tid);
+    }
+  }
+  unset($t);
+}
+
+
+function ent_util_image_default_styles() {
+  $styles = array();
+  $styles['home_page_work_320w_180h'] = array(
+      'name' => 'home_page_work_320w_180h',
+      'effects' => array(
+        6 => array(
+          'label' => 'Scale and crop',
+          'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+          'effect callback' => 'image_scale_and_crop_effect',
+          'dimensions callback' => 'image_resize_dimensions',
+          'form callback' => 'image_resize_form',
+          'summary theme' => 'image_resize_summary',
+          'module' => 'image',
+          'name' => 'image_scale_and_crop',
+          'data' => array(
+            'width' => '320',
+            'height' => '180',
+          ),
+          'weight' => '1',
+        ),
+      ),
+  );
+  $styles['home_page_work_480w_270h'] = array(
+    'name' => 'home_page_work_480w_270h',
+    'effects' => array(
+      6 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => '480',
+          'height' => '270',
+        ),
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  $styles['front_page_image'] = array(
+    'name' => 'front_page_image',
+    'effects' => array(
+      6 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_crop',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => '1240',
+          'height' => '620',
+        ),
+        'weight' => '1',
+      ),
+    ),
+  );
+  $styles['slide_thumbcrop_image'] = array(
+    'name' => 'slide_thumbcrop_image',
+    'effects' => array(
+      6 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_crop',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => '160',
+          'height' => '160',
+        ),
+        'weight' => '1',
+      ),
+    ),
+  );
+  return $styles;
+}

@@ -1,0 +1,24 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Awardwell
+ * Date: 4/14/13
+ * Time: 8:25 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+//module_load_include('inc', 'views_row_control', 'views_row_control.views');
+
+/**
+ * Implements hook_views_api().
+ */
+function views_row_control_views_api() {
+  return array(
+    'path' => drupal_get_path('module', 'views_row_control'),
+    'api' => 3.0,
+  );
+}
+
+function views_row_control_views_post_execute(&$view){
+  $i = 0;
+}

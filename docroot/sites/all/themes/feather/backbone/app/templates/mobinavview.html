@@ -1,0 +1,43 @@
+<div class="nav">
+  <div class="nav-wrap">
+    <svg class="icon" width="150px" height="150px"/>
+    <div class="name">
+      <h1>{{name}}</h1>
+    </div>
+  </div>
+    <!--<div class="res-wrapper">-->
+        <!--<ul>-->
+            <!--&lt;!&ndash;<li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<h3>About</h3>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--<li>-->
+                <!--<h3 id="resume">Resume</h3>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+  <ul class="skills-mobile" data-height>
+      <a class = "nav__item" data-skill = "resume" href="#resume">
+          <li class="skill__item skill__item--resume">
+              <div class = "skill-cont">
+                  <h3 id="resume">Resume</h3>
+              </div>
+              <div class = "dot-cont">
+                  <svg width="10px" height="10px" class="dot"></svg>
+              </div>
+      </li>
+      </a>
+      <ul>
+          {{#skills}}
+          <a class = "nav__item" data-skill = "{{.}}" href="#skill={{.}}">
+              <li class="skill__item">
+                  <div class = "skill-cont">
+                      <h3>{{.}}</h3>
+                  </div>
+                  <div class = "dot-cont">
+                      <svg width="10px" height="10px" class="dot"></svg>
+                  </div>
+              </li></a>
+          {{/skills}}
+      </ul>
+  </ul>
+</div>

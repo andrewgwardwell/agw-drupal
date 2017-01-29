@@ -1,0 +1,110 @@
+.resume{
+  .open-button{
+    display: none;
+  }
+  #resume-container{
+    display: block;
+  }
+  #detail-container{
+    display: none;
+  }
+}
+
+
+.skill__item--resume{
+  background: $blue_4;
+  color: $yellow_4;
+  border-bottom: 3px solid $green_1;
+}
+
+.active-item .skill__item--resume {
+  box-shadow: inset 5px 5px 28px -4px $green_3;
+}
+
+#resume-container{
+  display: none;
+  .res-section-title{
+    margin: 10px 0;
+  }
+  .item-heading{
+    margin: 10px 0;
+    font-weight: 600;
+  }
+  .item-dates{
+    font-style: italic;
+    font-weight: 600;
+  }
+  .sections{
+    margin: 0 auto;
+    padding: 1em 0;
+    width: 95%;
+  }
+  p{
+    padding: 10px 0;
+    line-height: 30px;
+    font-family: 'abel';
+  }
+  ul{
+    list-style: disc;
+    li{
+      font-family: 'abel';
+    }
+  }
+  .overview{
+    border-top: 10px solid $blue_5;
+  }
+  .experience{
+    border-top: 10px solid $yellow_5;
+  }
+  .res-skills{
+    border-top: 10px solid $red_5;
+
+    ul{
+      list-style: disc;
+      @include columns(2);
+      li{
+        padding: inherit;
+        -webkit-column-break-inside: avoid; /* Chrome, Safari */
+        page-break-inside: avoid;           /* Theoretically FF 20+ */
+        break-inside: avoid-column;         /* IE 11 */
+        display: grid;                      /* Actually FF 20+ */
+      }
+    }
+  }
+  .education{
+    border-top: 10px solid $green_5;
+  }
+}
+
+@include media($mq-lap-up){
+  #resume{
+    margin-top: 20px;
+    font-family: 'abel';
+    color: $blue_2;
+    @include transition(all .5s);
+    &.active-res,
+    &:hover{
+      font-weight: 600;
+      cursor: pointer;
+      color: $yellow_2;
+      padding-left: 10px;
+    }
+  }
+  .resume{
+    #display-container{
+      display: none;
+    }
+    .svg-container{
+      display: none;
+    }
+    #resume-container{
+      @include transform(translateX(1%));
+    }
+  }
+  #resume-container{
+    width: 80%;
+    float: left;
+    @include transition(all 1s);
+    @include transform(translateX(-100%));
+  }
+}

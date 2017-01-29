@@ -1,0 +1,2 @@
+[11-Nov-2016 15:40:05 America/New_York] PHP Fatal error:  __clone method called on non-object in /home/entickle/public_html/andrewgwardwell2/docroot/sites/all/modules/services/services.module on line 1041
+[11-Nov-2016 15:40:15 America/New_York] PHP Fatal error:  __clone method called on non-object in /home/entickle/public_html/andrewgwardwell2/docroot/sites/all/modules/services/services.module on line 1041

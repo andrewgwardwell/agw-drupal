@@ -1,0 +1,36 @@
+<div class="nav">
+  <div class="nav-wrap">
+    <svg class="icon" width="150px" height="150px"/>
+    <div class="name">
+      <h1>{{name}}</h1>
+    </div>
+  </div>
+  <ul class="skills" data-height>
+    <div class = "close-menu">
+      X
+    </div>
+{{#skills}}
+    <a class = "nav__item" data-skill = "{{.}}" href="#skill={{.}}">
+      <li class="skill__item">
+      <div class = "skill-cont">
+      <h3>{{.}}</h3>
+      </div>
+      <div class = "dot-cont">
+        <svg width="10px" height="10px" class="dot"></svg>
+      </div>
+    </li></a>
+{{/skills}}
+
+</ul>
+    <div class="res-wrapper">
+        <ul>
+            <!--<li>-->
+                <!--<h3>About</h3>-->
+            <!--</li>-->
+            <li>
+                <h3 id="resume">Resume</h3>
+            </li>
+        </ul>
+    </div>
+
+</div>

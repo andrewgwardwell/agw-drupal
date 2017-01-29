@@ -1,0 +1,32 @@
+@import "neat/neat-helpers";
+
+// Device-specific Widths
+// $width-wrist-max: em(100);
+$width-palm-mq: em(400);
+$width-palm: 81%;
+$width-palm-max: em(500);
+$width-lap-mq: em(750);
+$width-lap-mq: em(750);
+$width-lap: 95%;
+$width-lap-max: 95%;
+$width-desk: 85%;
+$width-desk-mq: em(1000);
+$width-desk-max: em(1100);
+
+$height-header-palm: em(60);
+$height-header-lap: em(91); 
+$height-header-desk: em(114); 
+$width-wall: em(1400);
+// $width-wall-max: em(1500);
+
+// Breakpoints for Neat's media() mixin
+// $mq-wrist: new-breakpoint(min-width $width-wrist 1);
+// $mq-wrist-exclusive: new-breakpoint(max-width $width-lap 4);
+//$mq-palm: new-breakpoint(min-width $width-palm 4);
+$mq-tab-up: new-breakpoint(min-width $width-palm-max 12);
+$mq-palm-down: new-breakpoint(max-width $width-lap-mq 4);
+$mq-lap-up: new-breakpoint(min-width $width-lap-mq 12);
+$mq-lap-only: new-breakpoint(min-width $width-lap-mq max-width $width-desk-mq 12);
+$mq-lap-down: new-breakpoint(max-width $width-desk-mq 12);
+$mq-desk-up: new-breakpoint(min-width $width-desk-mq 12);
+$mq-wall: new-breakpoint(min-width $width-wall 12);

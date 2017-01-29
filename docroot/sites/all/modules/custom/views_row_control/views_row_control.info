@@ -1,0 +1,10 @@
+name = Views Row Control
+description = Allows Admin to control Views rows accutely.
+package = Tickle Me
+version = VERSION
+core = 7.x
+
+files[] = views_plugin_style_list_views_row_control.inc
+files[] = views_handler_field_views_row_control.inc
+
+

@@ -1,0 +1,7 @@
+name = Entickle form and AJAX
+description = "AJAX and form for enticklemewardwell.com."
+package = Tickle Me
+version = VERSION
+core = 7.x
+
+
