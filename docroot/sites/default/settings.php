@@ -210,13 +210,23 @@
  *   );
  * @endcode
  */
-$databases['default']['default'] = array(
-'driver' => 'mysql',
-'database' => 'entickle_agw2',
-'username' => 'entickle_admin',
-'password' => 'entickle_root',
-'host' => 'localhost',
-);
+
+/**
+ * Include a local settings file if it exists.
+ */
+$local_settings = dirname(__FILE__) . '/settings.local.php';
+if (file_exists($local_settings)) {
+  include $local_settings;
+} else {
+	$databases['default']['default'] = array(
+		'driver' => 'mysql',
+		'database' => 'entickle_agw2',
+		'username' => 'entickle_admin',
+		'password' => 'entickle_root',
+		'host' => 'localhost',
+	);
+}
+
 
 /**
  * Access control for update.php script.
