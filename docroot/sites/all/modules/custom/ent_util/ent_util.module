@@ -41,6 +41,106 @@ function ent_taxonomy_add_term($term, $vid, $parent = 0){
   unset($t);
 }
 
+function ent_util_menu(){
+  $items = array();
+  $items['api/formatted-nodes'] = array(
+    'title' => 'formatted-api-nodes',
+    'page callback' => 'ent_util_node_output',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+function ent_util_node_output(){
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+  ->entityCondition('bundle', 'ent_project')
+  // ->propertyCondition('status', NODE_PUBLISHED)
+  // ->fieldCondition('field_news_types', 'value', 'spotlight', '=')
+  // // See the comment about != NULL above.
+  // ->fieldCondition('field_photo', 'fid', 'NULL', '!=')
+  // ->fieldCondition('field_faculty_tag', 'tid', $value)
+  // ->fieldCondition('field_news_publishdate', 'value', $year . '%', 'like')
+  // ->fieldOrderBy('field_photo', 'fid', 'DESC')
+  // ->range(0, 10)
+  // Run the query as user 1.
+  ->addMetaData('account', user_load(1));
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $node_nids = array_keys($result['node']);
+    $nodes = ent_util_clean_up(entity_load('node', $node_nids));
+  } 
+
+  drupal_json_output($nodes);
+  die();
+}
+
+function ent_util_clean_up($nodes){
+  $new_nodes = array();
+  foreach ($nodes as $key => $node) {
+    # code...
+    $n_n = $node;
+    $n_n = entity_metadata_wrapper('node', $node);
+    // drupal_json_output(var_dump());
+    // die();
+    $node->field_image = file_create_url($n_n->field_image->value()['uri']);
+    $node->content = $n_n->body->value()['value'];
+    $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_skill_category['und']));
+    $node->terms = $terms;
+    // // $n_n->field_image = ;
+    $new_nodes[] = $node;
+  }
+  return $new_nodes;
+}
+
+function ent_util_clean_up_single($node){
+  # code...
+  $new_node = new stdClass();
+  $n_n = $node;
+  $n_n = entity_metadata_wrapper('node', $node);
+  $new_node->title = $n_n->label();
+  $new_node->field_image = file_create_url($n_n->field_image->value()['uri']);
+  $new_node->content = $n_n->body->value()['value'];
+  // $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_skill_category['und']));
+  // $node->terms = $terms;
+  $new_node->field_gallery_images = fix_gallery_images($n_n->field_gallery_image->value());
+  
+
+  return $new_node;
+}
+
+function prune_to_terms($raw_terms){
+  $terms = array();
+  foreach ($raw_terms as $key => $t) {
+    $terms[] = array(
+      'tid' =>  $t->tid,
+      'name' => $t->name
+    );
+    # code...
+  }
+  return $terms;
+}
+
+function fix_gallery_images($images){
+  foreach ($images as $key => $t) {
+    $is[] = array(
+      'title' =>  $t['title'],
+      'image' => file_create_url($t['uri'])
+    );
+    # code...
+  }
+  return $is;
+}
+
+function ent_util_services_request_postprocess_alter($controller, $args, &$result){
+  // preprocess node retrvieval
+  if($controller['callback'] === '_node_resource_retrieve'){
+    $result = ent_util_clean_up_single($result);
+  }
+}
+
 
 function ent_util_image_default_styles() {
   $styles = array();
