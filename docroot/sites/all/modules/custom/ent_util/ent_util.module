@@ -46,17 +46,25 @@ function ent_util_menu(){
   $items['api/formatted-nodes'] = array(
     'title' => 'formatted-api-nodes',
     'page callback' => 'ent_util_node_output',
+    'page arguments'  => array('ent_project'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK
+  );
+  $items['api/formatted-blog-posts'] = array(
+    'title' => 'formatted-blog-posts',
+    'page callback' => 'ent_util_node_output',
+    'page arguments'  => array('article'),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK
   );
   return $items;
 }
 
-function ent_util_node_output(){
+function ent_util_node_output($type){
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-  ->entityCondition('bundle', 'ent_project')
-  // ->propertyCondition('status', NODE_PUBLISHED)
+  ->entityCondition('bundle', $type)
+  ->propertyCondition('status', NODE_PUBLISHED)
   // ->fieldCondition('field_news_types', 'value', 'spotlight', '=')
   // // See the comment about != NULL above.
   // ->fieldCondition('field_photo', 'fid', 'NULL', '!=')
@@ -70,26 +78,40 @@ function ent_util_node_output(){
 
   if (isset($result['node'])) {
     $node_nids = array_keys($result['node']);
-    $nodes = ent_util_clean_up(entity_load('node', $node_nids));
+    $nodes = ent_util_clean_up(entity_load('node', $node_nids), $type);
   } 
 
   drupal_json_output($nodes);
   die();
 }
 
-function ent_util_clean_up($nodes){
+function ent_util_clean_up($nodes, $type){
   $new_nodes = array();
   foreach ($nodes as $key => $node) {
     # code...
     $n_n = $node;
     $n_n = entity_metadata_wrapper('node', $node);
-    // drupal_json_output(var_dump());
-    // die();
-    $node->field_image = file_create_url($n_n->field_image->value()['uri']);
+    $terms = array();
     $node->content = $n_n->body->value()['value'];
-    $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_skill_category['und']));
+    if($type == 'ent_project'){
+      $node->field_image = file_create_url($n_n->field_image->value()['uri']);
+      $sm_img = image_style_url('w375max', $n_n->field_image->value()['uri']);
+      $md_img = image_style_url('w768max', $n_n->field_image->value()['uri']);
+      $lg_img = image_style_url('w992max', $n_n->field_image->value()['uri']);
+      $xl_img = image_style_url('w1280max', $n_n->field_image->value()['uri']);
+      $node->responsive_images = array(
+        'sm_img' => $sm_img,
+        'md_img' => $md_img,
+        'lg_img' => $lg_img,
+        'xl_img' => $xl_img
+      );
+      $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_skill_category['und']));
+    } elseif($type == 'article'){
+      $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_tags['und']));
+      $node->summary = $n_n->body->value()['summary'];
+
+    }
     $node->terms = $terms;
-    // // $n_n->field_image = ;
     $new_nodes[] = $node;
   }
   return $new_nodes;
@@ -101,7 +123,17 @@ function ent_util_clean_up_single($node){
   $n_n = $node;
   $n_n = entity_metadata_wrapper('node', $node);
   $new_node->title = $n_n->label();
-  $new_node->field_image = file_create_url($n_n->field_image->value()['uri']);
+  $uri = $n_n->field_image->value()['uri'];
+  $sm_img = image_style_url('w375max', $uri);
+  $md_img = image_style_url('w768max', $uri);
+  $lg_img = image_style_url('w992max', $uri);
+  $xl_img = image_style_url('w1280max', $uri);
+  $new_node->field_image = array(
+        'sm_img' => $sm_img,
+        'md_img' => $md_img,
+        'lg_img' => $lg_img,
+        'xl_img' => $xl_img
+  );
   $new_node->content = $n_n->body->value()['value'];
   // $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_skill_category['und']));
   // $node->terms = $terms;
@@ -125,9 +157,18 @@ function prune_to_terms($raw_terms){
 
 function fix_gallery_images($images){
   foreach ($images as $key => $t) {
+    $sm_img = image_style_url('w375max', $t['uri']);
+    $md_img = image_style_url('w768max', $t['uri']);
+    $lg_img = image_style_url('w992max', $t['uri']);
+    $xl_img = image_style_url('w1280max', $t['uri']);
     $is[] = array(
       'title' =>  $t['title'],
-      'image' => file_create_url($t['uri'])
+      'image' => array(
+        'sm_img' => $sm_img,
+        'md_img' => $md_img,
+        'lg_img' => $lg_img,
+        'xl_img' => $xl_img
+      )
     );
     # code...
   }

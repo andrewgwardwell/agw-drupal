@@ -138,23 +138,34 @@ function feather_preprocess_node(&$vars){
 //  if($view_mode == 'front_work_view'){
 //    $vars['theme_hook_suggestions'][] = 'node__ent_project__listing';
 //  }
-//  if (arg(0) == 'node' && $vars['type'] == 'ent_project'){
-//    drupal_add_js(drupal_get_path('theme', 'feather').'/scripts/flexslider/jquery.flexslider-min.js');
-//    drupal_add_css(drupal_get_path('theme', 'feather').'/scripts/flexslider/flexslider.css');
-//    // processing for the flexslider
-//    $hero_image = $vars['field_image'];
-//    $gallery_images = $vars['field_gallery_image'];
-//    $slides = array();
-//    foreach ($gallery_images as $g_image){
-//      $uri = $g_image['uri'];
-//      $image_url = image_style_url('front_page_image', $uri);
-//      $thumb_crop = image_style_url('slide_thumbcrop_image', $uri);
-//      $slide_description = $g_image['alt'];
-//      $slides [] = '<li data-thumb="'.$thumb_crop.'"><img class="slide__image" src="'.$image_url.'" /><div class = "slide__description">'.
-//      $slide_description.'</div></li>';
-//    }
-//    $vars['slides'] = '<ul class="slides">'.implode('', $slides).'</ul>';
-//  }
+ if (arg(0) == 'node' && $vars['type'] == 'ent_project'){
+   // processing for the flexslider
+   // $hero_image = $vars['field_image'];
+
+    $n_n = entity_metadata_wrapper('node', $vars['node']);
+    $sm_img = image_style_url('w375max', $n_n->field_image->value()['uri']);
+    $md_img = image_style_url('w768max', $n_n->field_image->value()['uri']);
+    $lg_img = image_style_url('w992max', $n_n->field_image->value()['uri']);
+    $xl_img = image_style_url('w1280max', $n_n->field_image->value()['uri']);
+
+    $vars['node']->res_images = array(
+      'sm_img' => $sm_img,
+      'md_img' => $md_img,
+      'lg_img' => $lg_img,
+      'xl_img' => $xl_img
+    );
+   $gallery_images = $n_n->field_gallery_image->value();
+   foreach ($gallery_images as $g_image){
+     $uri = $g_image['uri'];
+     $image_url = image_style_url('front_page_image', $uri);
+     $thumb_crop = image_style_url('slide_thumbcrop_image', $uri);
+     $slide_description = $g_image['alt'];
+     $slides [] = '<li data-thumb="'.$thumb_crop.'"><img class="slide__image" src="'.$image_url.'" /><div class = "slide__description">'.
+     $slide_description.'</div></li>';
+   }
+
+   // $vars['slides'] = '<ul class="slides">'.implode('', $slides).'</ul>';
+ }
 }
 
 function ent_image_sizing($dimensions, $uri){

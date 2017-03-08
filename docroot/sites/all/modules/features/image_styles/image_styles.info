@@ -1,0 +1,10 @@
+name = Image Styles
+core = 7.x
+package = Features
+dependencies[] = image
+features[features_api][] = api:2
+features[image][] = w1280max
+features[image][] = w375max
+features[image][] = w768max
+features[image][] = w992max
+project path = sites/all/modules/features
