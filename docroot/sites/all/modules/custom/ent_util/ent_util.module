@@ -57,10 +57,26 @@ function ent_util_menu(){
     'access callback' => TRUE,
     'type' => MENU_CALLBACK
   );
+  $items['api/cache-hash/%'] = array(
+    'title' => 'cacheHash',
+    'page callback' => 'ent_util_cache_hash_output',
+    'page arguments'  => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK
+  );
   return $items;
 }
 
+function ent_util_cache_hash_output($type){
+  $hash = array(
+    'key' => variable_get($type.'Hash', 0)
+  );
+  drupal_json_output($hash);
+  die();
+}
+
 function ent_util_node_output($type){
+  $hash = variable_get($type.'Hash', 0);
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
   ->entityCondition('bundle', $type)
@@ -81,7 +97,12 @@ function ent_util_node_output($type){
     $nodes = ent_util_clean_up(entity_load('node', $node_nids), $type);
   } 
 
-  drupal_json_output($nodes);
+  $for_consumption = array(
+    'key' => $hash,
+    'items' => $nodes
+  );
+
+  drupal_json_output($for_consumption);
   die();
 }
 
@@ -122,24 +143,23 @@ function ent_util_clean_up_single($node){
   $new_node = new stdClass();
   $n_n = $node;
   $n_n = entity_metadata_wrapper('node', $node);
+  $type = $node->type;
   $new_node->title = $n_n->label();
-  $uri = $n_n->field_image->value()['uri'];
-  $sm_img = image_style_url('w375max', $uri);
-  $md_img = image_style_url('w768max', $uri);
-  $lg_img = image_style_url('w992max', $uri);
-  $xl_img = image_style_url('w1280max', $uri);
-  $new_node->field_image = array(
-        'sm_img' => $sm_img,
-        'md_img' => $md_img,
-        'lg_img' => $lg_img,
-        'xl_img' => $xl_img
-  );
   $new_node->content = $n_n->body->value()['value'];
-  // $terms = prune_to_terms(entity_load('taxonomy_term', $node->field_skill_category['und']));
-  // $node->terms = $terms;
-  $new_node->field_gallery_images = fix_gallery_images($n_n->field_gallery_image->value());
-  
-
+  if($type == 'ent_project'){
+    $uri = $n_n->field_image->value()['uri'];
+    $sm_img = image_style_url('w375max', $uri);
+    $md_img = image_style_url('w768max', $uri);
+    $lg_img = image_style_url('w992max', $uri);
+    $xl_img = image_style_url('w1280max', $uri);
+    $new_node->field_image = array(
+          'sm_img' => $sm_img,
+          'md_img' => $md_img,
+          'lg_img' => $lg_img,
+          'xl_img' => $xl_img
+    );
+    $new_node->field_gallery_images = fix_gallery_images($n_n->field_gallery_image->value());
+  }
   return $new_node;
 }
 
@@ -179,6 +199,31 @@ function ent_util_services_request_postprocess_alter($controller, $args, &$resul
   // preprocess node retrvieval
   if($controller['callback'] === '_node_resource_retrieve'){
     $result = ent_util_clean_up_single($result);
+  }
+}
+
+function ent_util_node_update($node){
+  create_caching_hash($node);
+}
+
+function ent_util_node_insert($node){
+  create_caching_hash($node);
+}
+
+function create_caching_hash($node){
+  $type = $node->type;
+  $date = new DateTime();
+  $ts = $date->getTimestamp();
+  $hash = md5($ts);
+  switch ($type) {
+    case 'ent_project':
+      variable_set('ent_projectHash', $hash);
+      break;
+    case 'article':
+      variable_set('articleHash', $hash);
+      break;
+    default:
+      break;
   }
 }
 
